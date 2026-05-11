@@ -1,0 +1,25 @@
+{
+  "name": "agentick",
+  "version": "1.0.0",
+  "description": "Agentic web-based OS-like AI frontend with encrypted virtual filesystem",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "quick.db": "9.1.7",
+    "better-sqlite3": "12.6.2",
+    "bcrypt": "^5.1.1",
+    "express-session": "^1.18.1",
+    "connect-sqlite3": "^0.9.15",
+    "dotenv": "^16.4.7",
+    "node-fetch": "^3.3.2",
+    "cheerio": "^1.0.0",
+    "helmet": "^8.0.0",
+    "express-rate-limit": "^7.5.0",
+    "sanitize-html": "^2.14.0",
+    "uuid": "^11.1.0"
+  }
+}
