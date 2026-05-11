@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AgenTick OS — Agentic AI Operating System with encrypted virtual filesystem">
-  <title>AgenTick OS</title>
+  <meta name="description" content="AgenTick — AI Operating Environment">
+  <title>AgenTick</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -17,8 +17,8 @@
     <div class="auth-container">
       <div class="auth-logo">
         <div class="auth-logo-icon">⚡</div>
-        <h1>AgenTick<span class="auth-os">OS</span></h1>
-        <p class="auth-tagline">Agentic AI Operating System</p>
+        <h1>AgenTick</h1>
+        <p class="auth-tagline">AI Operating Environment</p>
       </div>
       <div class="auth-card">
         <div class="auth-tabs">
@@ -35,7 +35,7 @@
             <input type="password" id="login-password" autocomplete="current-password" required minlength="6">
           </div>
           <div id="login-error" class="auth-error"></div>
-          <button type="submit" class="btn btn-primary btn-full" id="login-btn">Sign In</button>
+          <button type="submit" class="btn btn-primary btn-full" id="login-btn">Unlock</button>
         </form>
         <form id="register-form" class="auth-form">
           <div class="form-group">
@@ -51,104 +51,46 @@
             <input type="password" id="reg-password2" autocomplete="new-password" required minlength="6">
           </div>
           <div id="register-error" class="auth-error"></div>
-          <button type="submit" class="btn btn-primary btn-full" id="register-btn">Create Account</button>
+          <button type="submit" class="btn btn-primary btn-full" id="register-btn">Initialize</button>
         </form>
       </div>
     </div>
   </div>
 
-  <!-- Desktop -->
+  <!-- Main Operating Environment -->
   <div id="desktop" class="desktop hidden">
-    <!-- Wallpaper layer -->
     <div id="wallpaper" class="wallpaper"></div>
 
-    <!-- Desktop icons -->
-    <div id="desktop-icons" class="desktop-icons">
-      <div class="desktop-icon" data-app="terminal">
-        <div class="icon-img">🤖</div>
-        <span>AI Terminal</span>
-      </div>
-      <div class="desktop-icon" data-app="browser">
-        <div class="icon-img">🌐</div>
-        <span>Browser</span>
-      </div>
-      <div class="desktop-icon" data-app="files">
-        <div class="icon-img">📁</div>
-        <span>Files</span>
-      </div>
-      <div class="desktop-icon" data-app="notes">
-        <div class="icon-img">📝</div>
-        <span>Notes</span>
-      </div>
-      <div class="desktop-icon" data-app="cron">
-        <div class="icon-img">⏰</div>
-        <span>Scheduler</span>
-      </div>
-      <div class="desktop-icon" data-app="scripts">
-        <div class="icon-img">📜</div>
-        <span>Script Editor</span>
-      </div>
-      <div class="desktop-icon" data-app="settings">
-        <div class="icon-img">⚙️</div>
-        <span>Settings</span>
-      </div>
-    </div>
-
-    <!-- Window container -->
-    <div id="windows-container" class="windows-container"></div>
-
-    <!-- Taskbar -->
-    <div id="taskbar" class="taskbar">
-      <div class="taskbar-start">
-        <button id="start-btn" class="start-btn">⚡</button>
-      </div>
-      <div id="taskbar-apps" class="taskbar-apps"></div>
-      <div class="taskbar-tray">
-        <span id="clock" class="taskbar-clock"></span>
-      </div>
-    </div>
-
-    <!-- Start menu -->
-    <div id="start-menu" class="start-menu hidden">
-      <div class="start-menu-header">
-        <div class="start-menu-user">
-          <div class="start-user-avatar">👤</div>
-          <span id="start-username"></span>
+    <div class="main-shell">
+      <div class="chat-container">
+        <div class="chat-header">
+          <div class="chat-title">AgenTick AI</div>
+          <div class="chat-actions">
+            <button id="settings-toggle" class="icon-btn" title="AI Settings">⚙️</button>
+            <button id="logout-btn" class="icon-btn" title="Sign Out">🚪</button>
+          </div>
+        </div>
+        <div id="term-history" class="chat-history">
+          <!-- Messages will be injected here -->
+        </div>
+        <div class="chat-input-area">
+          <input type="text" id="term-input" class="chat-input" placeholder="Interact with your environment..." autocomplete="off">
+          <button id="ai-btn" class="ai-btn">⚡</button>
         </div>
       </div>
-      <div class="start-menu-apps">
-        <button class="start-app" data-app="terminal">🤖 AI Terminal</button>
-        <button class="start-app" data-app="browser">🌐 Browser</button>
-        <button class="start-app" data-app="files">📁 File Manager</button>
-        <button class="start-app" data-app="notes">📝 Notes</button>
-        <button class="start-app" data-app="cron">⏰ Scheduler</button>
-        <button class="start-app" data-app="scripts">📜 Script Editor</button>
-        <button class="start-app" data-app="settings">⚙️ Settings</button>
-      </div>
-      <div class="start-menu-footer">
-        <button id="logout-btn" class="start-app logout-btn">🚪 Sign Out</button>
+    </div>
+
+    <!-- Modals (Settings, etc) -->
+    <div id="settings-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Environment Settings</h3>
+          <button class="modal-close">✕</button>
+        </div>
+        <div id="settings-body" class="modal-body"></div>
       </div>
     </div>
   </div>
-
-  <!-- Window template (cloned by JS) -->
-  <template id="window-template">
-    <div class="window">
-      <div class="window-titlebar">
-        <div class="window-title">
-          <span class="window-icon"></span>
-          <span class="window-title-text"></span>
-        </div>
-        <div class="window-controls">
-          <button class="win-ctrl win-minimize" title="Minimize">─</button>
-          <button class="win-ctrl win-maximize" title="Maximize">□</button>
-          <button class="win-ctrl win-close" title="Close">✕</button>
-        </div>
-      </div>
-      <div class="window-body"></div>
-      <div class="window-resize-handle"></div>
-    </div>
-  </template>
 
   <script src="/js/crypto.js"></script>
   <script src="/js/api.js"></script>
@@ -156,9 +98,9 @@
   <script src="/js/browser.js"></script>
   <script src="/js/filemanager.js"></script>
   <script src="/js/notes.js"></script>
-  <script src="/js/settings.js"></script>
   <script src="/js/cron.js"></script>
   <script src="/js/scripts.js"></script>
+  <script src="/js/settings.js"></script>
   <script src="/js/app.js"></script>
 </body>
 </html>

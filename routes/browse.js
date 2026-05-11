@@ -30,8 +30,13 @@ const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 // POST /api/browse/fetch — fetch and sanitize a URL
 router.post('/fetch', async (req, res) => {
   try {
-    const { url } = req.body;
+    let { url } = req.body;
     if (!url) return res.status(400).json({ error: 'URL is required' });
+
+    // Normalize URL
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      url = 'https://' + url;
+    }
 
     const f = await getFetch();
     const controller = new AbortController();
@@ -175,8 +180,13 @@ router.post('/extract-links', async (req, res) => {
 // POST /api/browse/download — download file as base64
 router.post('/download', async (req, res) => {
   try {
-    const { url } = req.body;
+    let { url } = req.body;
     if (!url) return res.status(400).json({ error: 'URL is required' });
+
+    // Normalize URL
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      url = 'https://' + url;
+    }
 
     const f = await getFetch();
     const controller = new AbortController();

@@ -148,6 +148,17 @@ const toolDefinitions = [
         required: ['path', 'content']
       }
     }
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'get_current_time',
+      description: 'Get the current local date and time of the system.',
+      parameters: {
+        type: 'object',
+        properties: {}
+      }
+    }
   }
 ];
 
@@ -325,6 +336,10 @@ async function executeTool(toolName, args, context) {
       const newContent = currentContent + args.content;
       await files.set(key, { ...existing, plaintext: newContent, encryptedContent: '', updatedAt: new Date().toISOString() });
       return JSON.stringify({ success: true, path: args.path, bytesAppended: args.content.length });
+    }
+
+    case 'get_current_time': {
+      return JSON.stringify({ currentTime: new Date().toLocaleString() });
     }
 
     default:
