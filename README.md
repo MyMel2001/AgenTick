@@ -92,4 +92,4 @@ graph TD
 
 ## 📜 License
 
-MIT License. See [LICENSE](LICENSE) for details.
+SPL-R5 License. See [LICENSE](LICENSE) for details.
