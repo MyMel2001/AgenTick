@@ -48,18 +48,22 @@ const CryptoModule = (() => {
       enc.encode(plaintext)
     );
 
+    const ui8ToB64 = (ui8) => btoa(String.fromCharCode.apply(null, ui8));
+
     return {
-      ciphertext: btoa(String.fromCharCode(...new Uint8Array(ciphertext))),
-      iv: btoa(String.fromCharCode(...iv)),
-      salt: btoa(String.fromCharCode(...salt))
+      ciphertext: ui8ToB64(new Uint8Array(ciphertext)),
+      iv: ui8ToB64(iv),
+      salt: ui8ToB64(salt)
     };
   }
 
   async function decrypt(encryptedObj, password) {
     try {
-      const salt = new Uint8Array(atob(encryptedObj.salt).split("").map(c => c.charCodeAt(0)));
-      const iv = new Uint8Array(atob(encryptedObj.iv).split("").map(c => c.charCodeAt(0)));
-      const ciphertext = new Uint8Array(atob(encryptedObj.ciphertext).split("").map(c => c.charCodeAt(0)));
+      const b64ToUi8 = (b64) => Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+      
+      const salt = b64ToUi8(encryptedObj.salt);
+      const iv = b64ToUi8(encryptedObj.iv);
+      const ciphertext = b64ToUi8(encryptedObj.ciphertext);
 
       const key = await getDerivedKey(password, salt);
 
