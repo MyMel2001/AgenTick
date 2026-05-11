@@ -91,7 +91,7 @@ const API = (() => {
       list: () => request('/api/cron'),
       create: (description) => request('/api/cron', { method: 'POST', body: JSON.stringify({ description }) }),
       delete: (id) => request(`/api/cron/${id}`, { method: 'DELETE' }),
-      toggle: (id) => request(`/api/cron/${id}/toggle', { method: 'PATCH' }),
+      toggle: (id) => request(`/api/cron/${id}/toggle`, { method: 'PATCH' }),
       logs: (id) => request(`/api/cron/${id}/logs`)
     }
   };
